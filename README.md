@@ -23,3 +23,10 @@ The simulation input can be provided in a file, or interactively. The first line
  - Robots must be in the format "(x, y, facing) commands", where x and y must be positive integers inside the grid size, facing is one of the chracters N, E, S, or W, and commands is a string made up of the characters L, R, and F.
 
 When running, each robot will execute its commands in order until either there are none left, or the robot runs off of the grid. 'F' causes it to move in the direction it's facing, whilst 'L' and 'R' make it turn left and right respectively.
+
+## Assumptions
+
+I made a couple of assumptions that the brief didn't cover:
+
+ - Robots can't collide (they're fine to occupy the same space).
+ - In the first example, one robot ends up with x = 4 on a grid of width 4, despite the grid being 0 based. I assumed this was a mistake in the brief, this implementation instead has the robot become lost with x = 3 for it's final position.

@@ -55,14 +55,6 @@ class Robot:
         lost_str = " LOST" if self.lost else ""
         return f"{state}{lost_str}"
 
-    def __str__(self) -> str:
-        return f"Robot [pos: {self.pos}, " \
-               f"facing: {self.facing}, " \
-               f"lost: {self.lost}, " \
-               f"commands: {self.commands}, " \
-               f"next_command: {self.next_command}" \
-               "]"
-
 
 def _get_next_position(pos: (int, int), facing: Facing) -> (int, int):
     if facing == 'N':

@@ -1,6 +1,8 @@
+import time
 from typing import List
 import sys
 
+import output
 import parser
 import robot
 
@@ -55,6 +57,8 @@ def run(grid_size, robots):
     while any((r.is_active() for r in robots)):
         for r in robots:
             r.tick(grid_size)
+        output.draw_state(grid_size, robots)
+        time.sleep(0.3)
 
     return [r.output_state() for r in robots]
 

@@ -1,6 +1,6 @@
+import argparse
 import time
 from typing import List
-import sys
 
 import output
 import parser
@@ -40,10 +40,10 @@ def read_interactive_input() -> ((int, int), List[robot.Robot]):
     return grid_size, robots
 
 
-def read_input(args) -> ((int, int), List[robot.Robot]):
+def read_input(file_name) -> ((int, int), List[robot.Robot]):
     """Read and parse input from specified file, or interactively if omitted"""
-    if len(args) > 1:
-        with open(args[1], "r") as f:
+    if file_name:
+        with open(file_name, "r") as f:
             try:
                 return parser.parse_lines(f.readlines())
             except ValueError as ex:
@@ -53,17 +53,35 @@ def read_input(args) -> ((int, int), List[robot.Robot]):
         return read_interactive_input()
 
 
-def run(grid_size, robots):
+def run(grid_size, robots, animated=False):
     while any((r.is_active() for r in robots)):
         for r in robots:
             r.tick(grid_size)
-        output.draw_state(grid_size, robots)
-        time.sleep(0.3)
+
+        if animated:
+            output.draw_state(grid_size, robots)
+            time.sleep(0.3)
 
     return [r.output_state() for r in robots]
 
 
 if __name__ == '__main__':
-    grid_size, robots = read_input(sys.argv)
-    for result in run(grid_size, robots):
+    arg_parser = argparse.ArgumentParser(
+        prog="Mars Rover",
+        description="Simulate programmed robots moving around a grid. See the "
+                    "examples folder for examples of the input format",
+    )
+    arg_parser.add_argument(
+        "filename",
+        nargs="?",
+        help="The file to read simulation input from. If omitted, input will "
+             "be read interactively.")
+    arg_parser.add_argument(
+        "-a", "--animated",
+        action="store_true",
+        help="Display the steps of the simulation")
+    args = arg_parser.parse_args()
+
+    grid_size, robots = read_input(args.filename)
+    for result in run(grid_size, robots, animated=args.animated):
         print(result)

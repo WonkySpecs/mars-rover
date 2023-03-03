@@ -5,12 +5,19 @@ Simulates robots moving around a grid according to preprogrammed commands. Teste
 ## Usage
 
 ```
-python main.py [FILE]
+python main.py [FILE] [OPTIONS]
 
 ARGS:
     <FILE>
-        The path to a file to read an input for. If omitted, user will be
+        The path to a file to read input from. If omitted, user will be
         prompted to enter values interactively
+
+OPTIONS:
+    -a, --animated
+        Show the steps of the simulation
+
+    -h, --help
+        Display help information
 ```
 
 The two examples from the brief are included in the `examples` folder - try them out with `python main.py examples/example-1` from this directory.

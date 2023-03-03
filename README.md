@@ -37,3 +37,9 @@ I made a couple of assumptions that the brief didn't cover:
 
  - Robots can't collide (they're fine to occupy the same space).
  - In the first example, one robot ends up with x = 4 on a grid of width 4, despite the grid being 0 based. I assumed this was a mistake in the brief, this implementation instead has the robot become lost with x = 3 for it's final position.
+
+## Extensions I didn't get to
+
+ - A test suite - I only used the examples from the brief and some adhoc examples with manual testing.
+ - Fixing types - the usage of Union types in `robot` doesn't actually work for static type checking; I was trying them out for the first time and hoped they'd work like union types from typescript. Using type hints was still handy for autocomplete suggestions, but I'd need to fix them to get their full utility.
+ - Better error reporting on invalid inputs - it'd be useful to point out exactly where the input was invalid, and do it for _all_ lines in the file rather than just the first error. This would make the parsing logic quite a bit more complicated, however.

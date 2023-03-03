@@ -20,6 +20,10 @@ class Robot:
         self.commands = commands
 
     def tick(self, grid_size: (int, int)):
+        """
+        Execute the next command if the robot is active.
+        :param grid_size: the size of the grid the robot acts in
+        """
         if not self.is_active():
             return
 
@@ -42,9 +46,11 @@ class Robot:
         self.facing = _facings[new_facing_index]
 
     def is_active(self):
+        """True if the robot is not lost and still has at least one command left"""
         return not self.lost and self.next_command < len(self.commands)
 
     def output_state(self) -> str:
+        """Get the robots state in the required output format"""
         state = f"({self.pos[0]}, {self.pos[1]}, {self.facing})"
         lost_str = " LOST" if self.lost else ""
         return f"{state}{lost_str}"

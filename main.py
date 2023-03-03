@@ -1,10 +1,11 @@
 from typing import List
+import sys
 
 import parser
 import robot
 
 
-def read_input() -> ((int, int), List[robot.Robot]):
+def read_interactive_input() -> ((int, int), List[robot.Robot]):
     """Interactively read the grid size and robots to run"""
     print("Welcome to mars rover. Input 'q' at any time to quit")
     grid_size = None
@@ -37,24 +38,20 @@ def read_input() -> ((int, int), List[robot.Robot]):
     return grid_size, robots
 
 
-def run():
-    input_lines = [
-        "4 8",
-        "(2, 3, E) LFRFF",
-        "(0, 2, N) FFLFRFF"
-    ]
-    # input_lines = [
-    #     "4 8",
-    #     "(2, 3, N) FLLFR",
-    #     "(1, 0, S) FFRLF"
-    # ]
-    try:
-        # grid_size, robots = parser.parse_lines(input_lines)
-        grid_size, robots = read_input()
-    except ValueError as ex:
-        print(f"Input was invalid: {ex}")
-        exit(1)
+def read_input(args) -> ((int, int), List[robot.Robot]):
+    """Read and parse input from specified file, or interactively if omitted"""
+    if len(args) > 1:
+        with open(args[1], "r") as f:
+            try:
+                return parser.parse_lines(f.readlines())
+            except ValueError as ex:
+                print(f"Input was invalid: {ex}")
+                exit(1)
+    else:
+        return read_interactive_input()
 
+
+def run(grid_size, robots):
     while any((r.is_active() for r in robots)):
         for r in robots:
             r.tick(grid_size)
@@ -63,5 +60,6 @@ def run():
 
 
 if __name__ == '__main__':
-    for result in run():
+    grid_size, robots = read_input(sys.argv)
+    for result in run(grid_size, robots):
         print(result)

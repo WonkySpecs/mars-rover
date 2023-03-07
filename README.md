@@ -22,6 +22,10 @@ OPTIONS:
 
 The two examples from the brief are included in the `examples` folder - try them out with `python main.py examples/example-1` from this directory.
 
+## Tests
+
+Run the unit tests with `python -m unittest`.
+
 ## Details
 
 The simulation input can be provided in a file, or interactively. The first line of the input is the grid size, and any following lines are robots.
@@ -40,6 +44,5 @@ I made a couple of assumptions that the brief didn't cover:
 
 ## Extensions I didn't get to
 
- - A test suite - I only used the examples from the brief and some adhoc examples with manual testing.
  - Fixing types - the usage of Union types in `robot` doesn't actually work for static type checking; I was trying them out for the first time and hoped they'd work like union types from typescript. Using type hints was still handy for autocomplete suggestions, but I'd need to fix them to get their full utility.
  - Better error reporting on invalid inputs - it'd be useful to point out exactly where the input was invalid, and do it for _all_ lines in the file rather than just the first error. This would make the parsing logic quite a bit more complicated, however.

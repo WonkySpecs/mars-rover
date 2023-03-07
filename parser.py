@@ -14,7 +14,7 @@ def parse_grid_size(line: str) -> (int, int):
     :return: the grid size, if the input was valid
     :raises ValueError: if the line does not match the required format
     """
-    match = re.search(r"(\d+)\s+(\d+)", line)
+    match = re.search(r"^\s*(\d+)\s+(\d+)\s*$", line)
     if not match:
         raise ValueError(f"{line} is not a valid grid size")
     return int(match.group(1)), int(match.group(2))
